@@ -432,24 +432,239 @@
 //   }
 // }
 
+///
+// ///
+// import 'dart:io';
+// import 'package:etech_cricket_app/constants/app_colors.dart';
+// import 'package:etech_cricket_app/constants/custom_size.dart';
+// import 'package:etech_cricket_app/controller/upload_controller.dart';
+// import 'package:etech_cricket_app/view/home_screen/uploaded_dashboard.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:video_player/video_player.dart';
+
+// class PlayerVideosScreenController extends GetxController {
+//   var selectedTabIndex = 0.obs;
+
+//   void changeTab(int index) {
+//     selectedTabIndex.value = index;
+//   }
+// }
+
+// class PlayerVideosScreen extends StatelessWidget {
+//   const PlayerVideosScreen({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final size = CustomSize();
+//     final controller = Get.put(PlayerVideosScreenController());
+//     final uploadController = Get.find<UploadController>();
+
+//     return Scaffold(
+//       backgroundColor: AppColors.whiteColor,
+//       body: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Container(
+//             padding: EdgeInsets.only(left: size.customWidth(context) * 0.03),
+//             height: size.customHeight(context) * 0.13,
+//             width: double.infinity,
+//             alignment: Alignment.center,
+//             decoration: BoxDecoration(
+//               color: AppColors.primaryColor,
+//               borderRadius: BorderRadius.only(
+//                 bottomLeft: Radius.circular(size.customWidth(context) * 0.02),
+//                 bottomRight: Radius.circular(size.customWidth(context) * 0.03),
+//               ),
+//             ),
+//             child: Row(
+//               children: [
+//                 GestureDetector(
+//                     onTap: () {
+//                       Get.back();
+//                     },
+//                     child: const Icon(Icons.arrow_back, color: Colors.white)),
+//                 SizedBox(width: size.customWidth(context) * 0.03),
+//                 Text(
+//                   "Player Video's",
+//                   style: GoogleFonts.poppins(
+//                     fontSize: size.customWidth(context) * 0.06,
+//                     fontWeight: FontWeight.bold,
+//                     color: Colors.white,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           SizedBox(height: size.customHeight(context) * 0.03),
+//           Obx(() => Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                 children: [
+//                   GestureDetector(
+//                     onTap: () => controller.changeTab(0),
+//                     child: Text(
+//                       'Uploaded',
+//                       style: GoogleFonts.poppins(
+//                         fontSize: size.customWidth(context) * 0.045,
+//                         fontWeight: FontWeight.w700,
+//                         color: controller.selectedTabIndex.value == 0
+//                             ? AppColors.primaryColor
+//                             : AppColors.blackColor,
+//                       ),
+//                     ),
+//                   ),
+//                   GestureDetector(
+//                     onTap: () => controller.changeTab(1),
+//                     child: Text(
+//                       'Live Stats',
+//                       style: GoogleFonts.poppins(
+//                         fontSize: size.customWidth(context) * 0.045,
+//                         fontWeight: FontWeight.w700,
+//                         color: controller.selectedTabIndex.value == 1
+//                             ? AppColors.primaryColor
+//                             : AppColors.blackColor,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               )),
+//           SizedBox(height: size.customHeight(context) * 0.015),
+//           Obx(() => Container(
+//                 margin: EdgeInsets.symmetric(
+//                     horizontal: size.customWidth(context) * 0.05),
+//                 height: 3.5,
+//                 width: double.infinity,
+//                 child: Row(
+//                   children: [
+//                     Expanded(
+//                       child: Container(
+//                         color: controller.selectedTabIndex.value == 0
+//                             ? AppColors.primaryColor
+//                             : Colors.grey.shade300,
+//                       ),
+//                     ),
+//                     Expanded(
+//                       child: Container(
+//                         color: controller.selectedTabIndex.value == 1
+//                             ? AppColors.primaryColor
+//                             : Colors.grey.shade300,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               )),
+//           SizedBox(height: size.customHeight(context) * 0.02),
+//           Expanded(
+//             child: Obx(() => controller.selectedTabIndex.value == 0
+//                 ? _buildUploadedVideos(context, uploadController)
+//                 : _buildLiveStats(context)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _buildUploadedVideos(
+//       BuildContext context, UploadController uploadController) {
+//     final size = CustomSize();
+//     final videos = uploadController.videoMap;
+//     if (videos.isEmpty) {
+//       return Center(
+//         child: Text(
+//           "No uploaded recorded videos",
+//           style: GoogleFonts.poppins(
+//             fontSize: size.customWidth(context) * 0.045,
+//             fontWeight: FontWeight.w500,
+//             color: AppColors.blackColor,
+//           ),
+//         ),
+//       );
+//     }
+
+//     final entries = videos.entries.toList();
+
+//     return GridView.builder(
+//       padding: EdgeInsets.all(size.customHeight(context) * 0.02),
+//       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//         crossAxisCount: 3,
+//         crossAxisSpacing: 10,
+//         mainAxisSpacing: 10,
+//         childAspectRatio: 0.8,
+//       ),
+//       itemCount: entries.length,
+//       itemBuilder: (context, index) {
+//         final entry = entries[index];
+//         return GestureDetector(
+//           onTap: () {
+//             // Get.to(() => FullVideoPlayerScreen(videoPath: entry.value));
+//                 Get.to(() => FullVideoPlayerScreen(videoPath: entry.value));
+
+
+//           },
+//           child: ClipRRect(
+//             borderRadius: BorderRadius.circular(12),
+//             child: Container(
+//               decoration: BoxDecoration(
+//                 border: Border.all(color: AppColors.primaryColor, width: 1.5),
+//                 borderRadius: BorderRadius.circular(12),
+//               ),
+//               child: Stack(
+//                 alignment: Alignment.center,
+//                 children: [
+//                   Icon(Icons.play_circle_fill,
+//                       color: AppColors.primaryColor, size: 40),
+//                   Positioned(
+//                     bottom: 6,
+//                     left: 4,
+//                     right: 4,
+//                     child: Text(
+//                       entry.key,
+//                       overflow: TextOverflow.ellipsis,
+//                       textAlign: TextAlign.center,
+//                       style: GoogleFonts.poppins(fontSize: 12),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+
+//   Widget _buildLiveStats(BuildContext context) {
+//     final size = CustomSize();
+//     return Center(
+//       child: Text(
+//         "Live Stats Videos",
+//         style: GoogleFonts.poppins(
+//           fontSize: size.customWidth(context) * 0.045,
+//           fontWeight: FontWeight.w500,
+//           color: AppColors.blackColor,
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+////
+
 
 import 'dart:io';
-import 'package:etech_cricket_app/constants/app_colors.dart';
-import 'package:etech_cricket_app/constants/custom_size.dart';
-import 'package:etech_cricket_app/controller/upload_controller.dart';
-import 'package:etech_cricket_app/view/home_screen/uploaded_dashboard.dart';
+import 'package:etech_cricket_app/controller/player_video_controller.dart';
+import 'package:etech_cricket_app/view/player/home_screen/uploaded_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 
-class PlayerVideosScreenController extends GetxController {
-  var selectedTabIndex = 0.obs;
-
-  void changeTab(int index) {
-    selectedTabIndex.value = index;
-  }
-}
+import 'package:etech_cricket_app/constants/app_colors.dart';
+import 'package:etech_cricket_app/constants/custom_size.dart';
+import 'package:etech_cricket_app/controller/upload_controller.dart';
+import 'package:etech_cricket_app/controller/live_stats_controller.dart';
 
 class PlayerVideosScreen extends StatelessWidget {
   const PlayerVideosScreen({super.key});
@@ -459,16 +674,17 @@ class PlayerVideosScreen extends StatelessWidget {
     final size = CustomSize();
     final controller = Get.put(PlayerVideosScreenController());
     final uploadController = Get.find<UploadController>();
+    final liveStatsController = Get.put(LiveStatsController());
 
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // HEADER
           Container(
             padding: EdgeInsets.only(left: size.customWidth(context) * 0.03),
             height: size.customHeight(context) * 0.13,
-            width: double.infinity,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.primaryColor,
@@ -480,10 +696,9 @@ class PlayerVideosScreen extends StatelessWidget {
             child: Row(
               children: [
                 GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: const Icon(Icons.arrow_back, color: Colors.white)),
+                  onTap: () => Get.back(),
+                  child: const Icon(Icons.arrow_back, color: Colors.white),
+                ),
                 SizedBox(width: size.customWidth(context) * 0.03),
                 Text(
                   "Player Video's",
@@ -496,7 +711,10 @@ class PlayerVideosScreen extends StatelessWidget {
               ],
             ),
           ),
+
           SizedBox(height: size.customHeight(context) * 0.03),
+
+          // TABS
           Obx(() => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -528,10 +746,12 @@ class PlayerVideosScreen extends StatelessWidget {
                   ),
                 ],
               )),
+
           SizedBox(height: size.customHeight(context) * 0.015),
+
+          // TAB INDICATOR
           Obx(() => Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: size.customWidth(context) * 0.05),
+                margin: EdgeInsets.symmetric(horizontal: size.customWidth(context) * 0.05),
                 height: 3.5,
                 width: double.infinity,
                 child: Row(
@@ -553,34 +773,58 @@ class PlayerVideosScreen extends StatelessWidget {
                   ],
                 ),
               )),
+
           SizedBox(height: size.customHeight(context) * 0.02),
+
+          // BODY
           Expanded(
             child: Obx(() => controller.selectedTabIndex.value == 0
                 ? _buildUploadedVideos(context, uploadController)
-                : _buildLiveStats(context)),
+                : _buildLiveStatsVideos(context, liveStatsController)),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildUploadedVideos(
-      BuildContext context, UploadController uploadController) {
+  Widget _buildUploadedVideos(BuildContext context, UploadController uploadController) {
     final size = CustomSize();
     final videos = uploadController.videoMap;
+
     if (videos.isEmpty) {
-      return Center(
-        child: Text(
-          "No uploaded recorded videos",
-          style: GoogleFonts.poppins(
-            fontSize: size.customWidth(context) * 0.045,
-            fontWeight: FontWeight.w500,
-            color: AppColors.blackColor,
-          ),
-        ),
-      );
+      return _noVideosText(context, "No uploaded recorded videos");
     }
 
+    return _videoGrid(context, videos);
+  }
+
+  Widget _buildLiveStatsVideos(BuildContext context, LiveStatsController liveStatsController) {
+    final size = CustomSize();
+    final videos = liveStatsController.liveStatsMap;
+
+    if (videos.isEmpty) {
+      return _noVideosText(context, "No live stats videos available");
+    }
+
+    return _videoGrid(context, videos);
+  }
+
+  Widget _noVideosText(BuildContext context, String message) {
+    final size = CustomSize();
+    return Center(
+      child: Text(
+        message,
+        style: GoogleFonts.poppins(
+          fontSize: size.customWidth(context) * 0.045,
+          fontWeight: FontWeight.w500,
+          color: AppColors.blackColor,
+        ),
+      ),
+    );
+  }
+
+  Widget _videoGrid(BuildContext context, Map<String, String> videos) {
+    final size = CustomSize();
     final entries = videos.entries.toList();
 
     return GridView.builder(
@@ -596,10 +840,7 @@ class PlayerVideosScreen extends StatelessWidget {
         final entry = entries[index];
         return GestureDetector(
           onTap: () {
-            // Get.to(() => FullVideoPlayerScreen(videoPath: entry.value));
-                Get.to(() => FullVideoPlayerScreen(videoPath: entry.value));
-
-
+               Get.to(() => FullVideoPlayerScreen(videoPath: entry.value));
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
@@ -611,8 +852,7 @@ class PlayerVideosScreen extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Icon(Icons.play_circle_fill,
-                      color: AppColors.primaryColor, size: 40),
+                  const Icon(Icons.play_circle_fill, color: AppColors.primaryColor, size: 40),
                   Positioned(
                     bottom: 6,
                     left: 4,
@@ -632,20 +872,5 @@ class PlayerVideosScreen extends StatelessWidget {
       },
     );
   }
-
-  Widget _buildLiveStats(BuildContext context) {
-    final size = CustomSize();
-    return Center(
-      child: Text(
-        "Live Stats Videos",
-        style: GoogleFonts.poppins(
-          fontSize: size.customWidth(context) * 0.045,
-          fontWeight: FontWeight.w500,
-          color: AppColors.blackColor,
-        ),
-      ),
-    );
-  }
 }
-
 

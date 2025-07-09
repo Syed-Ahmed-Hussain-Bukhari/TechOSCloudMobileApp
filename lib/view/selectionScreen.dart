@@ -1,7 +1,7 @@
 import 'package:etech_cricket_app/constants/app_colors.dart';
 import 'package:etech_cricket_app/constants/custom_size.dart';
 import 'package:etech_cricket_app/routes/app_routes.dart';
-import 'package:etech_cricket_app/view/home_screen/player_uploaded_video.dart';
+import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
