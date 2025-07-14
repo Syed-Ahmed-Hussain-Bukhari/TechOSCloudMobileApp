@@ -5,6 +5,8 @@ import 'package:etech_cricket_app/view/coach/coachScreen.dart';
 import 'package:etech_cricket_app/view/coach/coach_dashboard.dart';
 import 'package:etech_cricket_app/view/player/home_screen/playerVideos.dart';
 import 'package:etech_cricket_app/view/player/home_screen/home.dart';
+import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video%20(1).dart';
+import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video%20(2).dart';
 import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video.dart';
 import 'package:etech_cricket_app/view/player/player_profile_screen/edit_profile_screen.dart';
 import 'package:etech_cricket_app/view/player/player_profile_screen/profile_screen.dart';
@@ -12,6 +14,8 @@ import 'package:etech_cricket_app/view/selectionScreen.dart';
 import 'package:etech_cricket_app/view/splashScreen.dart';
 import 'package:etech_cricket_app/view/startScreen/height_screen.dart';
 import 'package:etech_cricket_app/view/startScreen/player_infromation_screen.dart';
+import 'package:etech_cricket_app/view/startScreen/player_personal_info.dart';
+import 'package:etech_cricket_app/view/startScreen/player_roles.dart';
 import 'package:etech_cricket_app/view/startScreen/weight_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,7 +41,7 @@ class AppRoutes {
    
      GetPage<Route<dynamic>>(
       name: splashScreen,
-      page: () => SplashScreen(),
+      page: () => MyNewPlayerHomeScreen(),
     ),
   
      GetPage<Route<dynamic>>(

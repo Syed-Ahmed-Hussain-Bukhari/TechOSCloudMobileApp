@@ -1,6 +1,7 @@
 import 'package:etech_cricket_app/components/customButton.dart';
 import 'package:etech_cricket_app/constants/custom_size.dart';
 import 'package:etech_cricket_app/routes/app_routes.dart';
+import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video%20(2).dart';
 import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video.dart';
 import 'package:etech_cricket_app/view/player/home_screen/playerVideos.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class CoachDrawermenu extends StatelessWidget {
         title: Text("Add Player Video's", style: GoogleFonts.poppins()),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: () {
-          Get.to(PlayerHomeScreen());
+          Get.to(MyNewPlayerHomeScreen());
         },
       ),
 

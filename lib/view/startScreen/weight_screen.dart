@@ -1,3 +1,4 @@
+import 'package:etech_cricket_app/view/startScreen/height_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -72,8 +73,10 @@ class WeightScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Save weight or navigate to next screen
-                },
+                      print("Selected Weight: ${controller.weight.value.toStringAsFixed(1)} ${controller.isKg.value ? 'KG' : 'LB'}");
+                      // Navigate or store weight if needed
+                      Get.to(HeightScreen());
+                    },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
                   padding: EdgeInsets.symmetric(

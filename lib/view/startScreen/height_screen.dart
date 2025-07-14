@@ -1,3 +1,4 @@
+import 'package:etech_cricket_app/view/startScreen/player_infromation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,8 +83,12 @@ class HeightScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Save height or navigate
-                },
+                    final height = controller.height.value;
+                    final unit = controller.isCm.value ? "CM" : "IN";
+                    print("Selected Height: ${height.toStringAsFixed(1)} $unit");
+                    Get.to(PlayerInformationScreen());
+                 },
+
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
                   padding: EdgeInsets.symmetric(

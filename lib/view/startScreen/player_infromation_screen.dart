@@ -1,12 +1,14 @@
+import 'package:etech_cricket_app/routes/app_routes.dart';
+import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video%20(2).dart';
+import 'package:etech_cricket_app/view/player/home_screen/player_uploaded_video.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 import 'package:etech_cricket_app/constants/app_colors.dart';
 import 'package:etech_cricket_app/constants/custom_size.dart';
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
   var selectedImage = Rx<File?>(null);
@@ -23,8 +25,6 @@ class ProfileController extends GetxController {
     }
   }
 }
-
-
 
 class PlayerInformationScreen extends StatelessWidget {
   const PlayerInformationScreen({super.key});
@@ -65,7 +65,7 @@ class PlayerInformationScreen extends StatelessWidget {
             ),
             SizedBox(height: size.customHeight(context) * 0.04),
 
-            // Profile Image Picker
+            /// Profile Image Picker
             Center(
               child: Stack(
                 children: [
@@ -109,10 +109,32 @@ class PlayerInformationScreen extends StatelessWidget {
             _buildAgeSelector(context, controller),
 
             SizedBox(height: size.customHeight(context) * 0.04),
+
+            /// Continue Button with Validation
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Proceed or Save
+                  if (controller.selectedImage.value == null) {
+                    Get.snackbar(
+                      'Image Required',
+                      'Please select a profile image.',
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.redAccent,
+                      colorText: Colors.white,
+                      margin: const EdgeInsets.all(12),
+                      duration: const Duration(seconds: 2),
+                    );
+                    return;
+                  }
+
+                  // Proceed with data (for now just print)
+                  print("Selected Batting: ${controller.selectedBatting.value}");
+                  print("Selected Fitness: ${controller.selectedFitness.value}");
+                  print("Selected Gender: ${controller.selectedGender.value}");
+                  print("Age: ${controller.age.value}");
+                  print("Image path: ${controller.selectedImage.value!.path}");
+
+                  Get.to(MyNewPlayerHomeScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
@@ -125,7 +147,7 @@ class PlayerInformationScreen extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Continue',
+                  'Sumbit',
                   style: GoogleFonts.poppins(
                     fontSize: size.customWidth(context) / 22,
                     color: AppColors.whiteColor,
@@ -225,10 +247,9 @@ class PlayerInformationScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // TextField to enter age
                     Expanded(
                       child: TextFormField(
-                        key: ValueKey(controller.age.value), // avoid rebuild issues
+                        key: ValueKey(controller.age.value),
                         initialValue: controller.age.value.toString(),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
