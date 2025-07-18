@@ -45,6 +45,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   shimmer: ^3.0.0
   http: ^1.4.0
+  # better_player: ^0.0.84
 
 dev_dependencies:
   flutter_test:

@@ -358,7 +358,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     _startMagic();
-
+                                                                                              
     Timer(const Duration(seconds: 6), () {
       Get.toNamed(AppRoutes.login);
     });
